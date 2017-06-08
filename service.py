@@ -20,7 +20,7 @@ class Mail(object):
     def send(self, to, subject, contents):
 
         sg = sendgrid.SendGridAPIClient(
-            apikey="os.environ.get('SENDGRID_API_KEY')"
+            apikey=os.environ.get('SENDGRID_API_KEY')
         )
 
         file_path = 'file_path.txt'
@@ -53,17 +53,18 @@ class Mail(object):
                     "value": contents
                 }
             ],
-            "attachments": [
-                {
-                    "content": encoded,
-                    "filename": file_path
-                }
-            ]
+            # "attachments": [
+            #     {
+            #         "content": encoded,
+            #         "filename": file_path
+            #     }
+            # ]
 
         }
 
         try:
             response = sg.client.mail.send.post(request_body=data)
+            return response.status_code
         except Exception as e:
             print(e)
         except urllib.HTTPError as e:

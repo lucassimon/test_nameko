@@ -56,7 +56,7 @@ def compute():
 
         hello_res = rpc.mail.send.call_async(email, subject, msg)
 
-        hello_res.result()  # "hello-x-y"
+        result = hello_res.result()  # "hello-x-y"
 
         # asynchronously spawning the compute task
 
@@ -64,7 +64,10 @@ def compute():
             operation, value, other, email
         )
 
-        world_res.result()  # "world-x-y"
+        result_world = world_res.result()  # "world-x-y"
+
+        print(result)
+
         return msg, 200
 
 
